@@ -1,0 +1,23 @@
+schema: '2.0'
+stages:
+  build:
+    cmd:
+    - docker build -t docker-dvc .
+    - docker images --no-trunc --quiet docker-dvc > image.sha
+    deps:
+    - path: Dockerfile
+      md5: ad0a178a48dd5bd22a31d1c66216bbc7
+      size: 88
+    - path: test.sh
+      md5: b9063c4e1a21849933d8447db34cff30
+      size: 36
+    outs:
+    - path: image.sha
+      md5: f626037ad9c3fa53e52d2e33e39c31ae
+      size: 72
+  run:
+    cmd: docker run -it docker-dvc
+    deps:
+    - path: image.sha
+      md5: f626037ad9c3fa53e52d2e33e39c31ae
+      size: 72

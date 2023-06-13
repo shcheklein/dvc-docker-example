@@ -1,0 +1,16 @@
+stages:
+  build:
+    cmd: 
+      - docker build -t docker-dvc .
+      - docker images --no-trunc --quiet docker-dvc > image.sha
+    deps:
+      - test.sh
+      - Dockerfile
+    outs:
+      - image.sha:
+          cache: false
+  run:
+    cmd: docker run -it docker-dvc
+    deps:
+      - image.sha
+
