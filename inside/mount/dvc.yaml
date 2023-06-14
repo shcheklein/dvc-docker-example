@@ -1,0 +1,7 @@
+stages:
+  count:
+    cmd: src/count.sh
+    deps:
+    - data/data.xml
+    outs:
+    - model/model.txt
