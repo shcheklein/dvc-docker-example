@@ -1,0 +1,12 @@
+schema: '2.0'
+stages:
+  count:
+    cmd: src/count.sh
+    deps:
+    - path: data/data.xml
+      md5: 22a1a2931c8370d3aeedd7183606fd7f
+      size: 14445097
+    outs:
+    - path: model/model.txt
+      md5: ba2d8d9883ddf29aa90d5768f3d076cb
+      size: 9

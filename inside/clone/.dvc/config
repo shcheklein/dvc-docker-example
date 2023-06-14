@@ -1,0 +1,6 @@
+[core]
+    remote = storage
+['remote "s3-storage"']
+    url = s3://dvc-public/remote/docker-example
+['remote "storage"']
+    url = https://remote.dvc.org/docker-example
