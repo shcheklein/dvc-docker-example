@@ -2,22 +2,30 @@ schema: '2.0'
 stages:
   build:
     cmd:
-    - docker build -t docker-dvc .
-    - docker images --no-trunc --quiet docker-dvc > image.sha
+    - docker build -t dvc-docker-outside .
+    - docker images --no-trunc --quiet dvc-docker-outside > image.sha
     deps:
     - path: Dockerfile
-      md5: ad0a178a48dd5bd22a31d1c66216bbc7
-      size: 88
-    - path: test.sh
-      md5: b9063c4e1a21849933d8447db34cff30
-      size: 36
+      md5: 70aea719a7e49c0a390293cebd857d41
+      size: 96
+    - path: src
+      md5: 5dc559fc092e1ea7d3ce4e4d9265bccc.dir
+      size: 66
+      nfiles: 1
     outs:
     - path: image.sha
-      md5: f626037ad9c3fa53e52d2e33e39c31ae
+      md5: 0d346ed3ad2dd3b598d86086bc4e6274
       size: 72
   run:
-    cmd: docker run -it docker-dvc
+    cmd: docker run -it -v ./data:/app/data -v ./model:/app/model dvc-docker-outside
     deps:
+    - path: data/data.xml
+      md5: 22a1a2931c8370d3aeedd7183606fd7f
+      size: 14445097
     - path: image.sha
-      md5: f626037ad9c3fa53e52d2e33e39c31ae
+      md5: 0d346ed3ad2dd3b598d86086bc4e6274
       size: 72
+    outs:
+    - path: model/model.txt
+      md5: 154773ae5dc2d36d8b9747e5d3dbfc36
+      size: 6

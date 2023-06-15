@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 WORKDIR /app
-COPY test.sh .
-RUN  chmod +x test.sh
-CMD ["./test.sh"]
+COPY src src
+RUN  chmod +x src/count.sh
+CMD ["./src/count.sh"]
 
