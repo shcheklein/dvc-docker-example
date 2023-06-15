@@ -1,16 +1,19 @@
 stages:
   build:
     cmd: 
-      - docker build -t docker-dvc .
-      - docker images --no-trunc --quiet docker-dvc > image.sha
+      - docker build -t dvc-docker-outside .
+      - docker images --no-trunc --quiet dvc-docker-outside > image.sha
     deps:
-      - test.sh
+      - src
       - Dockerfile
     outs:
       - image.sha:
           cache: false
   run:
-    cmd: docker run -it docker-dvc
+    cmd: docker run -it -v ./data:/app/data -v ./model:/app/model dvc-docker-outside
     deps:
       - image.sha
+      - data/data.xml
+    outs:
+      - model/model.txt
 
